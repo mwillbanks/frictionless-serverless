@@ -1,11 +1,16 @@
-service: frictionless-serverless
-
+service: serverless-rest-starter
 frameworkVersion: '3'
-
 provider:
   name: aws
   runtime: nodejs14.x
-
+  memorySize: 256
+  stage: ${opt:stage, 'offline'}
+  region: us-east-1
+  timeout: 28
+  logRetentionInDays: 7
+  versionFunctions: false
 functions:
-  hello:
-    handler: handler.hello
+  api:
+    handler: api/index.handler
+    events:
+      - httpApi: '*'
